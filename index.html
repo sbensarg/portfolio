@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sara Bensarghin — Fullstack Java Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f7f7f5;
+      --bg3: #f0efe9;
+      --text: #1a1a1a;
+      --text2: #6b6b68;
+      --text3: #a0a09c;
+      --border: rgba(0,0,0,0.1);
+      --border2: rgba(0,0,0,0.18);
+      --info-bg: #e6f1fb;
+      --info-text: #185fa5;
+      --success-bg: #eaf3de;
+      --success-text: #3b6d11;
+      --syne: 'Syne', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c1c1a;
+        --bg2: #252523;
+        --bg3: #2e2e2b;
+        --text: #f0efe9;
+        --text2: #a0a09c;
+        --text3: #6b6b68;
+        --border: rgba(255,255,255,0.1);
+        --border2: rgba(255,255,255,0.18);
+        --info-bg: #042c53;
+        --info-text: #85b7eb;
+        --success-bg: #173404;
+        --success-text: #97c459;
+      }
+    }
+
+    body {
+      font-family: var(--syne);
+      background: var(--bg3);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    @media (max-width: 540px) {
+      .hero { grid-template-columns: 1fr; }
+      .stats { flex-direction: row !important; align-items: flex-start !important; }
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--info-text);
+      background: var(--info-bg);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      letter-spacing: .04em;
+    }
+
+    .name {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: .5rem;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 1.5rem;
+      font-family: var(--mono);
+    }
+
+    .links {
+      display: flex;
+      gap: .625rem;
+      flex-wrap: wrap;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--text2);
+      text-decoration: none;
+      border: 0.5px solid var(--border2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all .2s;
+    }
+
+    .link-btn:hover { color: var(--text); border-color: var(--text3); }
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      align-items: flex-end;
+    }
+
+    .stat-num {
+      font-size: 30px;
+      font-weight: 700;
+      font-family: var(--mono);
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--text3);
+      font-family: var(--mono);
+      letter-spacing: .06em;
+      text-align: right;
+    }
+
+    /* SECTION */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text3);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: border-color .2s, transform .15s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+    .card.featured {
+      grid-column: 1 / -1;
+      border: 1.5px solid var(--info-text);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: .875rem;
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .icon-blue   { background: var(--info-bg); color: var(--info-text); }
+    .icon-teal   { background: #e1f5ee; color: #0f6e56; }
+    .icon-amber  { background: #faeeda; color: #854f0b; }
+    .icon-coral  { background: #faece7; color: #993c1d; }
+    .icon-purple { background: #eeedfe; color: #534ab7; }
+
+    @media (prefers-color-scheme: dark) {
+      .icon-teal   { background: #04342c; color: #5dcaa5; }
+      .icon-amber  { background: #412402; color: #ef9f27; }
+      .icon-coral  { background: #4a1b0c; color: #f0997b; }
+      .icon-purple { background: #26215c; color: #afa9ec; }
+    }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--mono);
+      font-size: 10px;
+      background: var(--success-bg);
+      color: var(--success-text);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success-text);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    .card-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: .375rem;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .375rem;
+      margin-bottom: .875rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--bg2);
+      color: var(--text2);
+      border: 0.5px solid var(--border);
+    }
+
+    .tag.hot {
+      background: var(--info-bg);
+      color: var(--info-text);
+      border-color: transparent;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: .875rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      gap: 1rem;
+    }
+
+    .card-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--info-text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: opacity .15s;
+    }
+
+    .card-link:hover { opacity: .7; }
+
+    /* EXPERIENCE */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: .625rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 8px 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: .875rem 1.125rem;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .exp-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--info-text);
+      flex-shrink: 0;
+    }
+
+    .exp-dot.dim { background: var(--text3); }
+
+    .exp-role { font-size: 14px; font-weight: 500; color: var(--text); }
+    .exp-company { font-size: 12px; color: var(--text2); font-family: var(--mono); margin-top: 2px; }
+    .exp-date { font-family: var(--mono); font-size: 11px; color: var(--text3); white-space: nowrap; }
+
+    /* SKILLS */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .skill-chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border2);
+      color: var(--text2);
+      background: var(--bg);
+      transition: border-color .15s, color .15s;
+    }
+
+    .skill-chip:hover { color: var(--text); border-color: var(--text3); }
+
+    /* CONTACT */
+    .contact-bar {
+      display: flex;
+      gap: .875rem;
+      flex-wrap: wrap;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      align-items: center;
+    }
+
+    .contact-val { font-family: var(--mono); font-size: 12px; color: var(--text); }
+    .sep { color: var(--border2); }
+
+    /* section spacing */
+    .section { margin-bottom: 2.5rem; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="badge">available for opportunities</div>
+      <div class="name">Sara Bensarghin</div>
+      <div class="subtitle">fullstack java developer &nbsp;·&nbsp; morocco</div>
+      <div class="links">
+        <a class="link-btn" href="https://github.com/sbensarg" target="_blank">
+          <i class="ti ti-brand-github"></i> github
+        </a>
+        <a class="link-btn" href="https://www.linkedin.com/in/sbensarg/" target="_blank">
+          <i class="ti ti-brand-linkedin"></i> linkedin
+        </a>
+        <a class="link-btn" href="mailto:sarabensarghin9@gmail.com">
+          <i class="ti ti-mail"></i> email
+        </a>
+        <a class="link-btn" href="https://sbensarg-travel-courier.hf.space" target="_blank">
+          <i class="ti ti-external-link"></i> live demo
+        </a>
+      </div>
+    </div>
+    <div class="stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">yrs experience</div>
+      </div>
+      <div>
+        <div class="stat-num">6+</div>
+        <div class="stat-label">languages</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">prod systems</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="section">
+    <div class="section-label">featured project</div>
+    <div class="grid">
+      <div class="card featured">
+        <div class="card-top">
+          <div class="card-icon icon-blue"><i class="ti ti-truck"></i></div>
+          <div class="live-badge"><div class="live-dot"></div> live</div>
+        </div>
+        <div class="card-name">TravelCourier — Shipment Tracking Platform</div>
+        <div class="card-desc">Full-stack shipment management app built with Vaadin Hilla (React) + Spring Boot. Features an animated landing page, real-time dashboard with filtering, shipment detail panel, and a per-courier chat system. Fully mobile-responsive. Submitted to the Vaadin Community Competition 2026.</div>
+        <div class="tags">
+          <span class="tag hot">Spring Boot</span>
+          <span class="tag hot">React</span>
+          <span class="tag hot">Vaadin Hilla</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Java 21</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Vaadin Competition 2026</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://sbensarg-travel-courier.hf.space" target="_blank">
+            <i class="ti ti-external-link"></i> live demo
+          </a>
+          <a class="card-link" href="https://github.com/sbensarg/travel-courier" target="_blank">
+            <i class="ti ti-brand-github"></i> source code
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <div class="section-label">open source projects</div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon icon-teal"><i class="ti ti-server"></i></div>
+        </div>
+        <div class="card-name">42Webserv</div>
+        <div class="card-desc">A fully functional HTTP/1.1 web server built from scratch in C++. Implements CGI, file upload, config parsing, and multiplexed I/O — zero external libraries.</div>
+        <div class="tags">
+          <span class="tag">C++</span>
+          <span class="tag">HTTP/1.1</span>
+          <span class="tag">CGI</span>
+          <span class="tag">Networking</span>
+          <span class="tag">Systems</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/sbensarg/42Webserv" target="_blank">
+            <i class="ti ti-brand-github"></i> source code
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon icon-purple"><i class="ti ti-device-gamepad-2"></i></div>
+        </div>
+        <div class="card-name">ft_transcendence</div>
+        <div class="card-desc">Full-stack multiplayer Pong game with real-time gameplay, user auth, chat, and a tournament system. Built as a team project at 1337 school covering the full web stack.</div>
+        <div class="tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">WebSocket</span>
+          <span class="tag">Real-time</span>
+          <span class="tag">Team project</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/Zqadiri/ft_transcendence" target="_blank">
+            <i class="ti ti-brand-github"></i> source code
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon icon-amber"><i class="ti ti-terminal-2"></i></div>
+        </div>
+        <div class="card-name">minishell</div>
+        <div class="card-desc">A POSIX-compliant shell interpreter in C. Handles pipes, redirections, env variables, signals, and built-ins like cd, echo, export — built from scratch without system().</div>
+        <div class="tags">
+          <span class="tag">C</span>
+          <span class="tag">Unix</span>
+          <span class="tag">Shell</span>
+          <span class="tag">Systems</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/MouadDv/minishell" target="_blank">
+            <i class="ti ti-brand-github"></i> source code
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon icon-coral"><i class="ti ti-cube-3d-sphere"></i></div>
+        </div>
+        <div class="card-name">Cub3D</div>
+        <div class="card-desc">A raycasting 3D engine inspired by Wolfenstein 3D in C using mlx. Parses custom map files and renders textured walls, floor, and ceiling in real time.</div>
+        <div class="tags">
+          <span class="tag">C</span>
+          <span class="tag">Graphics</span>
+          <span class="tag">Raycasting</span>
+          <span class="tag">Math</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/sbensarg/Cub3D_1337" target="_blank">
+            <i class="ti ti-brand-github"></i> source code
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-label">professional experience</div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-dot"></div>
+        <div>
+          <div class="exp-role">Web Developer Engineer</div>
+          <div class="exp-company">Cires Technologies · Tanger Med</div>
+        </div>
+        <div class="exp-date">2022 – present</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-dot dim"></div>
+        <div>
+          <div class="exp-role">Mobile Developer Intern</div>
+          <div class="exp-company">CGI Technologies · Fès</div>
+        </div>
+        <div class="exp-date">04 – 07 / 2019</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-dot dim"></div>
+        <div>
+          <div class="exp-role">Technical Support Intern</div>
+          <div class="exp-company">Webhelp · Rabat</div>
+        </div>
+        <div class="exp-date">2017 – 2018</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-label">technical skills</div>
+    <div class="skills-row">
+      <span class="skill-chip">Java</span>
+      <span class="skill-chip">Spring Boot</span>
+      <span class="skill-chip">React.js</span>
+      <span class="skill-chip">Next.js</span>
+      <span class="skill-chip">TypeScript</span>
+      <span class="skill-chip">Go / Golang</span>
+      <span class="skill-chip">C / C++</span>
+      <span class="skill-chip">Python</span>
+      <span class="skill-chip">PostgreSQL</span>
+      <span class="skill-chip">MySQL</span>
+      <span class="skill-chip">Docker</span>
+      <span class="skill-chip">Kubernetes</span>
+      <span class="skill-chip">Rancher</span>
+      <span class="skill-chip">Grafana</span>
+      <span class="skill-chip">Prometheus</span>
+      <span class="skill-chip">JUnit</span>
+      <span class="skill-chip">Mockito</span>
+      <span class="skill-chip">Karate</span>
+      <span class="skill-chip">K6</span>
+      <span class="skill-chip">Keycloak</span>
+      <span class="skill-chip">Git</span>
+      <span class="skill-chip">Linux</span>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <div class="section-label">contact</div>
+    <div class="contact-bar">
+      <i class="ti ti-map-pin" style="color:var(--text3);font-size:16px"></i>
+      <span class="contact-val">Tangier, Morocco</span>
+      <span class="sep">·</span>
+      <i class="ti ti-mail" style="color:var(--text3);font-size:16px"></i>
+      <span class="contact-val">sarabensarghin9@gmail.com</span>
+      <span class="sep">·</span>
+      <i class="ti ti-phone" style="color:var(--text3);font-size:16px"></i>
+      <span class="contact-val">+212 636 603 922</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
